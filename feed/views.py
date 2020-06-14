@@ -3,6 +3,16 @@ from django.http import JsonResponse
 from .forms import *
 from pusher import Pusher
 import json
+from django.contrib.auth.forms import UserCreationForm
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required, permission_required
+from .forms import UserRegisterForm
+
+# Create your views here.
+
+
 
 
 #instantiate pusher
@@ -43,4 +53,16 @@ def push_feed(request):
        # return error, type isnt post
        return HttpResponse('error, please try again')
 
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Your account has been created! You are now able to log in')
+            return redirect('login')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'users/login.html', {'form': form})
 
