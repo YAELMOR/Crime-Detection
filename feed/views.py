@@ -4,11 +4,13 @@ from .forms import *
 from pusher import Pusher
 import json
 from django.contrib.auth.forms import UserCreationForm
-
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from .forms import UserRegisterForm
+from django.core.paginator import Paginator
+
 
 # Create your views here.
 

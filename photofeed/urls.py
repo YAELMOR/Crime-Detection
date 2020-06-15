@@ -17,7 +17,6 @@ from django.conf.urls import url
 from django.contrib import admin
 from feed.views import * 
 
-
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 
@@ -28,13 +27,10 @@ urlpatterns = [
     url(r'^pusher_authentication', pusher_authentication),
     url(r'^admin/', admin.site.urls),
     #url(r'^login/$', login),
+    #url(r'^login/$',register),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
-    
+    path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+        
+
 
 ]
-
-
-#urlpatterns = [
-#    path('login/', auth_views.LoginView.as_view(template_name = 'users/login.html'), name='login'),
- #   path('logout/', auth_views.LogoutView.as_view(template_name = 'users/logout.html'), name='logout'),
-#]
