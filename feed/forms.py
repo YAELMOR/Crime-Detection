@@ -9,10 +9,11 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 class DocumentForm(forms.ModelForm):
+    file_field = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
     class Meta:
         model = Feed
         fields = ('description', 'document', )
-
+        
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()

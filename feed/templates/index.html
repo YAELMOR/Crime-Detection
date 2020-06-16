@@ -94,12 +94,13 @@
                       
                     </div>
                   </section>
+                {% if user.is_authenticated %}
                 <input type="hidden" id="csrf" name="csrf" value="{{ csrf_token }}" />
     
                     <div class="article-metadata" style="color: black !important;">
                         <div style="color: black !important;">
                         <label  for="usr">Drug and Drop:</label>
-                        <input type="file" id="document" name="document" class="form-control" required>
+                        <input type="file" id="document" name="document" class="form-control" required multiple>
                     </div>
                     <br>
                 <div class="form-group">
@@ -125,16 +126,19 @@
                               <p class="card-text">אם נרצה להוסיף עוד מלל כאן</p>
                               <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                               <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                </div>
+                                {% if user.is_authenticated %}
+                                {% if user.is_superuser %}
+                                <a class="btn-group" href="{% url 'delete_feed' doc.id %}">Delete</a>
+                                {% endif %}
+                                {% endif %}
+
                             </div>
                             </div>
                         </div>    
                     </div>
                     
                 </span>{% endfor %}
-                
+                {% endif %}
             </div>
         </div>
         <footer class="text-muted">

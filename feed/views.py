@@ -42,9 +42,13 @@ def push_feed(request):
     # check if the method is post
     if request.method == 'POST':
         # try form validation
+        files = request.FILES.getlist('file_field')
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
-            f = form.save()
+            for f in files:
+                print("f")
+                # Do something with each file.
+            #f = form.save()
             # trigger a pusher request after saving the new feed element 
             pusher.trigger(u'private-a_channel', u'an_event', {u'description': f.description, u'document': f.document.url})
             return HttpResponse('ok')
@@ -57,4 +61,9 @@ def push_feed(request):
 
 
 
-
+@login_required
+def delete_feed(request, id):
+    if (id is not None):
+        Feed.objects.filter(id=id).delete()
+    
+    return redirect('index')

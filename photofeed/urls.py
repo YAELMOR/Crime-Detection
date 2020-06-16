@@ -22,7 +22,7 @@ from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
-    url(r'^$', index),
+    url(r'^$', index, name = 'index'),
     url(r'^push_feed$', push_feed),
     url(r'^pusher_authentication', pusher_authentication),
     url(r'^admin/', admin.site.urls),
@@ -30,6 +30,7 @@ urlpatterns = [
     #url(r'^login/$',register),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+    path('index/delete_feed/<int:id>/',delete_feed, name='delete_feed'),
         
 
 
