@@ -42,19 +42,10 @@ def push_feed(request):
     # check if the method is post
     if request.method == 'POST':
         # try form validation
-        files = request.FILES.getlist('file_field')
-        form = DocumentForm(request.POST, request.FILES)
-        if form.is_valid():
-            for f in files:
-                print("f")
-                # Do something with each file.
-            #f = form.save()
-            # trigger a pusher request after saving the new feed element 
-            pusher.trigger(u'private-a_channel', u'an_event', {u'description': f.description, u'document': f.document.url})
-            return HttpResponse('ok')
-        else:
-            # return a form not valid error
-            return HttpResponse('form not valid')
+        files = request.FILES.getlist('document')
+        for f in files:
+            Feed.objects.create(document = f, description = f.name)
+        return redirect('index')
     else:
        # return error, type isnt post
        return HttpResponse('error, please try again')
