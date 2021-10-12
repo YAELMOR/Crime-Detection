@@ -4,7 +4,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 - Clone this repository by running: 
 ```
-git clone https://github.com/samuelayo/pusher_django_photo_feed.git
+git clone https://github.com/YAELMOR/Crime-Detection.git
 ```
 - Change directory to the cloned repo
 ```
